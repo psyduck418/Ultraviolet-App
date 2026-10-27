@@ -67,6 +67,5 @@ function shutdown() {
 	process.exit(0);
 }
 
-server.listen({
-	port,
-});
+// 關鍵：將 Express 實例匯出給 Vercel Serverless 使用
+export default app;
