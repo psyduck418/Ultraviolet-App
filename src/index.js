@@ -18,9 +18,18 @@ app.use("/epoxy/", express.static(epoxyPath));
 app.use("/baremux/", express.static(baremuxPath));
 
 // Error for everything else
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+// 取得當前檔案的絕對目錄
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Error for everything else
 app.use((req, res) => {
 	res.status(404);
-	res.sendFile("./public/404.html");
+	// ✅ 改用絕對路徑，從 src 往上一層找到 public/404.html
+	res.sendFile(join(__dirname, "../public/404.html"));
 });
 
 const server = createServer();
